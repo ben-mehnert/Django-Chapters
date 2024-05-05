@@ -1,0 +1,6 @@
+<!-- create_genre.html -->
+<form method="post" enctype="multipart/form-data" action="{% url 'create_chapters' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>

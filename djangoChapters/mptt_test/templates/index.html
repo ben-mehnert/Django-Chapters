@@ -1,0 +1,26 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... your existing head content ... -->
+</head>
+<body>
+    <h1>Chapters</h1>
+    {% load mptt_tags %}
+    <ul>
+        {% recursetree chapters %}
+            {% if node.name %}
+                <li>
+                    <a href="{% url 'chapter_detail' chapter_name=node.name %}">{{ node.name }}</a>
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                    
+                </li>
+            {% endif %}
+        {% endrecursetree %}
+    </ul>
+</body>
+</html>

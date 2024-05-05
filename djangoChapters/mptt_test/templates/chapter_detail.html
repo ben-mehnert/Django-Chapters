@@ -1,0 +1,54 @@
+<!-- chapter_detail.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chapter.name }}</title>
+    <link rel="stylesheet" href="{% static '/css/chapters_styles.css' %}">
+</head>
+<body>
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+    <div>
+
+        <h1>{{ chapter.name }}</h1>
+    {% if chapter.context %}
+        <p>{{ chapter.context|safe }}</p>
+    {% endif %}
+
+    <besgo>
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+    <ul>
+        {% for file in chapter.files.all %}
+            <li>
+                <strong>{{ file.file.name }}</strong><br>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if chapter.files.all %}
+        <h2>Files</h2>
+        <ul>
+            {% for file in chapter.files.all %}
+                {% with file_name=file.file.name|lower %}
+                    {% if file_name|slice:'-4:' == '.jpg' or file_name|slice:'-5:' == '.jpeg' or file_name|slice:'-4:' == '.png' or file_name|slice:'-4:' == '.gif' %}
+                        <li>
+                            {{ file.file.name }}<br>
+                            <img src="{{ file.file.url }}" alt="{{ file.file.name }}" style="max-width: 40%;">
+                        </li>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    </div>
+    
+</body>
+</html>
